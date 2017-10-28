@@ -4,7 +4,8 @@ var app = express();
 
 app.set('view engine', 'ejs');
 
-const PORT=3000;
+const PORT=process.env.OPENSHIFT_NODEJS_PORT || 3000;
+const IPADDRESS=process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 var urlencodedParser = parser.urlencoded({ extended: false })
 
@@ -19,4 +20,4 @@ app.get('/', function(req, res){
   res.render('taxCalc');
 });
 
-app.listen(PORT);
+app.listen(PORT, IPADDRESS);
