@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Tax Calculation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+  function CalculateTax()
+  {
+    var amount = Number(document.getElementById('amount').value);
+    var rate = Number(document.getElementById('rate').value);
+    var tax = amount * (rate/100.00);
+    document.getElementById('result').innerHTML = "The total amount is " + parseFloat(amount+tax).toFixed(2) +
+                                                  " " + document.getElementById('currency').value;
+  }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Tax Form (WS 2017)</h1>
+    </div>
+    <form class="form-horizontal" action="/calculateTax" method="post">
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="amount">Amount:</label>
+        <div class="col-sm-6">
+          <input type="number" class="form-control" id="amount"  name="amount" placeholder="Enter Amount" min="0" step="0.01" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="rate">Rate (%):</label>
+        <div class="col-sm-6">
+          <input type="number" class="form-control" id="rate" name="rate" placeholder="Enter Rate (%)" min="0" max="100" step="0.001" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="currency">Currency:</label>
+        <div class="col-sm-4">
+          <select class="form-control" id="currency" name = "currency">
+            <option selected>US Dollars</option>
+            <option>Euros</option>
+            <option>GB Pounds</option>
+            <option>Indian Rupees</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="button" class="btn btn-default" onclick="CalculateTax()">Javascript Calculate</button>
+          <button type="submit" class="btn btn-default">Node JS Calculate</button>
+        </div>
+      </div>
+    </form>
+    <div class="jumbotron">
+      <h3 id="result"> <%= (typeof data != "undefined" ? data : "") %> </h3>
+    </div>
+  </div>
+
+</body>
+</html>
